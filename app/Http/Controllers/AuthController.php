@@ -17,15 +17,11 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]);
 
-        $user = User::create([
+        return User::create([
             'name' => $attr['name'],
             'password' => bcrypt($attr['password']),
             'email' => $attr['email']
         ]);
-
-        return [
-            'token' => $user->createToken('API Token')->plainTextToken
-        ];
     }
 
     public function login(Request $request)
@@ -40,9 +36,7 @@ class AuthController extends Controller
             return ['success' => false];
         }
 
-        return [
-            'token' => auth()->user()->createToken('API Token')->plainTextToken
-        ];
+        return $request->user();
     }
 
     public function logout()
