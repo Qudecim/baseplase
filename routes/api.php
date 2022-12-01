@@ -20,9 +20,16 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
     Route::get('/user', function(Request $request) {
         return auth()->user();
     });
-
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/token', [\App\Http\Controllers\TokenController::class, 'index']);
+    Route::post('/token', [\App\Http\Controllers\TokenController::class, 'store']);
+    Route::delete('/token/{token}', [\App\Http\Controllers\TokenController::class, 'destroy']);
+
 });
+
+
