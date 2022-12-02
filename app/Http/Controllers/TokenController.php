@@ -4,24 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class TokenController extends Controller
 {
 
-    public function index(Request $request)
+    /**
+     * Show user tokens
+     * @param Request $request
+     * @return Collection
+     */
+    public function index(Request $request): Collection
     {
         return $request->user()->tokens()->get()->pluck('token');
     }
 
+    /**
+     * Create new token
+     * @return array
+     */
     public function store(): array
     {
+        [$id, $token] = explode('|', auth()->user()->createToken('API Token')->plainTextToken, 2);
         return [
-            'token' => auth()->user()->createToken('API Token')->plainTextToken
+            'token' => hash('sha256', $token)
         ];
     }
 
-    public function destroy(Request $request, string $token): void
+    /**
+     * Destroy user token
+     * @param string $token
+     * @return void
+     */
+    public function destroy(string $token): void
     {
         auth()->user()->tokens()->where('token', $token)->delete();
     }

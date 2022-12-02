@@ -9,7 +9,12 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
 
-    public function register(Request $request)
+    /**
+     * Register new user
+     * @param Request $request
+     * @return User
+     */
+    public function register(Request $request): User
     {
         $attr = $request->validate([
             'name' => 'required|string|max:255',
@@ -24,7 +29,13 @@ class AuthController extends Controller
         ]);
     }
 
-    public function login(Request $request)
+    /**
+     * Authenticate
+     * @param Request $request
+     * @return User
+     * @throws \Exception
+     */
+    public function login(Request $request): User
     {
         $attr = $request->validate([
             'email' => 'required|string|email|',
@@ -32,14 +43,16 @@ class AuthController extends Controller
         ]);
 
         if (!Auth::attempt($attr)) {
-            //throw new \Exception('Credentials not match');
-            return ['success' => false];
+            throw new \Exception('Credentials not match');
         }
 
         return $request->user();
     }
 
-    public function logout()
+    /**
+     * @return void
+     */
+    public function logout(): void
     {
         Auth::guard('web')->logout();
     }
