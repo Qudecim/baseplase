@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\StatusService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,11 +23,15 @@ class AuthController extends Controller
             'password' => 'required|string|min:6|confirmed'
         ]);
 
-        return User::create([
+        $user = User::create([
             'name' => $validatedData['name'],
             'password' => bcrypt($validatedData['password']),
             'email' => $validatedData['email']
         ]);
+
+        StatusService::createDefault($user);
+
+        return $user;
     }
 
     /**

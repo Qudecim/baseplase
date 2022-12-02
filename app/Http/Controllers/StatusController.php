@@ -42,7 +42,7 @@ class StatusController extends Controller
      */
     public function show(Request $request, Status $status): Status
     {
-        return StatusService::get($request->user(), $status);
+        return StatusService::show($request->user(), $status);
     }
 
     /**
@@ -66,8 +66,8 @@ class StatusController extends Controller
      * @param  Status  $status
      * @return void
      */
-    public function destroy(Status $status): void
+    public function destroy(Request $request,Status $status): void
     {
-        StatusService::delete($status);
+        StatusService::delete($request->user(), $status);
     }
 }

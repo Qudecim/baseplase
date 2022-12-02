@@ -5,28 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Collection
      */
-    public function index()
+    public function index(Request $request): Collection
     {
-        //
+        return OrderService::all($request->user());
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return Order
      */
-    public function store(Request $request)
+    public function store(Request $request): Order
     {
-        OrderService::create();
+        $validatedData = $request->validate([
+            'status_id' => 'int',
+        ]);
+        return OrderService::create($request->user(), $validatedData);
     }
 
     /**

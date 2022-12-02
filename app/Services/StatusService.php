@@ -41,7 +41,7 @@ class StatusService
      * @return Status
      * @throws \Exception
      */
-    public static function get(User $user, Status $status): Status
+    public static function show(User $user, Status $status): Status
     {
         if ($status->owner_id == $user->id) {
             return $status;
@@ -62,9 +62,36 @@ class StatusService
         return $status;
     }
 
-    public static function delete(Status $status)
+    /**
+     * @param User $user
+     * @param Status $status
+     * @return void
+     */
+    public static function delete(User $user, Status $status): void
     {
-        $status->delete();
+        if ($status->owner_id == $user->id) {
+            $status->delete();
+        }
+    }
+
+    /**
+     * Create default statuses
+     * @param User $user
+     * @return void
+     */
+    public static function createDefault(User $user): void
+    {
+        $defaultStatuses = [
+            [
+                'owner_id'  => $user->id,
+                'name'      => 'new',
+                'color'     => '3498db',
+                'created_at'=> date('Y-m-d H:i:s'),
+                'updated_at'=> date('Y-m-d H:i:s'),
+            ]
+        ];
+
+        Status::insert($defaultStatuses);
     }
 
 }
