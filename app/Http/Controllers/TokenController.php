@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
 class TokenController extends Controller
 {
-
     /**
      * Show user tokens
      * @param Request $request
@@ -26,9 +23,8 @@ class TokenController extends Controller
      */
     public function store(): array
     {
-        [$id, $token] = explode('|', auth()->user()->createToken('API Token')->plainTextToken, 2);
         return [
-            'token' => hash('sha256', $token)
+            'token' => auth()->user()->createToken('API Token')->plainTextToken
         ];
     }
 

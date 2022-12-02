@@ -30,6 +30,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/token', [\App\Http\Controllers\TokenController::class, 'store']);
     Route::delete('/token/{token}', [\App\Http\Controllers\TokenController::class, 'destroy']);
 
+    Route::get('/status', [\App\Http\Controllers\StatusController::class, 'index']);
+    Route::get('/status/{status}', [\App\Http\Controllers\StatusController::class, 'show']);
+    Route::post('/status', [\App\Http\Controllers\StatusController::class, 'store']);
+    Route::put('/status/{status}', [\App\Http\Controllers\StatusController::class, 'update']);
+    Route::delete('/status/{status}', [\App\Http\Controllers\StatusController::class, 'destroy']);
+
 });
 
 

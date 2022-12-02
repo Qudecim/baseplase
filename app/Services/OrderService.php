@@ -5,20 +5,20 @@ namespace App\Services;
 
 
 use App\Models\Order;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class OrderService
 {
 
     /**
      * Create new Order
-     * @param User $user
+     * @param Request $request
      * @return Order
      */
-    public static function create(User $user): Order
+    public static function create(Request $request): Order
     {
         $order = new Order();
-        $order->owner_id = $user->id;
+        $order->owner_id = $request->user()->id;
         $order->save();
 
         return $order;

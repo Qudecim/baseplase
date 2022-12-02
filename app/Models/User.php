@@ -41,4 +41,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get order statuses
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function statuses(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Status::class, 'owner_id');
+    }
 }

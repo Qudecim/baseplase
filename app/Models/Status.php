@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model
+class Status extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'owner_id',
-        'status'
+        'name',
+        'color'
     ];
 }

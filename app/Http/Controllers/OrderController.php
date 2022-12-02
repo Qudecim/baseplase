@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -25,7 +26,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        OrderService::create();
     }
 
     /**
