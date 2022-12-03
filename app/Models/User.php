@@ -50,4 +50,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Status::class, 'owner_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Order::class, 'owner_id');
+    }
 }

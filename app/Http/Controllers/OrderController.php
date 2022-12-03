@@ -36,34 +36,40 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param \App\Models\Order $order
+     * @return Order
+     * @throws \Exception
      */
-    public function show(Order $order)
+    public function show(Request $request, Order $order): Order
     {
-        //
+        return OrderService::show($request->user(), $order);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Order $order
+     * @return Order
+     * @throws \Exception
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Order $order): Order
     {
-        //
+        $validatedData = $request->validate([
+            'status_id' => 'int',
+        ]);
+        return OrderService::update($request->user(), $order, $validatedData);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function destroy(Order $order)
+    public function destroy(Request $request,Order $order):void
     {
-        //
+        OrderService::destroy($request->user(), $order);
     }
 }

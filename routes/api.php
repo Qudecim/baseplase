@@ -37,10 +37,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/status/{status}', [\App\Http\Controllers\StatusController::class, 'destroy']);
 
     Route::get('/order', [\App\Http\Controllers\OrderController::class, 'index']);
-    Route::get('/status/{status}', [\App\Http\Controllers\OrderController::class, 'show']);
+    Route::get('/order/{order}', [\App\Http\Controllers\OrderController::class, 'show']);
     Route::post('/order', [\App\Http\Controllers\OrderController::class, 'store']);
-    Route::put('/status/{status}', [\App\Http\Controllers\OrderController::class, 'update']);
-    Route::delete('/status/{status}', [\App\Http\Controllers\OrderController::class, 'destroy']);
+    Route::put('/order/{order}', [\App\Http\Controllers\OrderController::class, 'update']);
+    Route::delete('/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy']);
 });
 
 

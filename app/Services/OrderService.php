@@ -17,7 +17,7 @@ class OrderService
      */
     public static function all(User $user): Collection
     {
-        return Order::where('owner_id', $user->id)->get();
+        return $user->orders()->get();
     }
 
     /**
@@ -31,7 +31,9 @@ class OrderService
         $order = new Order();
         $order->owner_id = $user->id;
         $order->status_id = 0;
+
         self::fill($order, $data);
+
         $order->save();
 
         return $order;
@@ -48,7 +50,7 @@ class OrderService
         if ($order->owner_id == $user->id) {
             return $order;
         }
-        throw new \Exception('');
+        throw new \Exception('ops');
     }
 
     /**
