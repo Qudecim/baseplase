@@ -16,7 +16,7 @@ class StatusController extends Controller
      */
     public function index(Request $request): Collection
     {
-        return StatusService::all($request->user());
+        return StatusService::index($request->user());
     }
 
     /**

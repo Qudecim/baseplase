@@ -6,7 +6,6 @@ namespace App\Services;
 
 use App\Models\Order;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class OrderService
@@ -15,7 +14,7 @@ class OrderService
      * @param User $user
      * @return Collection
      */
-    public static function all(User $user): Collection
+    public static function index(User $user): Collection
     {
         return $user->orders()->get();
     }
@@ -32,9 +31,7 @@ class OrderService
         $order->owner_id = $user->id;
         $order->status_id = 0;
 
-        self::fill($order, $data);
-
-        $order->save();
+        $order->fill($data)->save();
 
         return $order;
     }
@@ -60,11 +57,11 @@ class OrderService
      * @return Order
      * @throws \Exception
      */
-    public static function update(User $user, Order $order, array $data)
+    public static function update(User $user, Order $order, array $data): Order
     {
         if ($order->owner_id == $user->id) {
 
-            self::fill($order, $data);
+            $order->fill($data)->save();
 
             return $order;
         }
@@ -82,19 +79,5 @@ class OrderService
             $order->delete();
         }
     }
-
-    /**
-     * Fill data
-     * @param Order $order
-     * @param array $data
-     * @return void
-     */
-    private static function fill(Order $order, array $data)
-    {
-        if (isset($data['status_id'])) {
-            $order->status_id = $data['status_id'];
-        }
-    }
-
 
 }

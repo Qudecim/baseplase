@@ -15,4 +15,8 @@ class Status extends Model
         'name',
         'color'
     ];
+
+    protected $hidden = [
+        'owner_id',
+    ];
 }

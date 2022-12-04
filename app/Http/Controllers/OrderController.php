@@ -16,7 +16,7 @@ class OrderController extends Controller
      */
     public function index(Request $request): Collection
     {
-        return OrderService::all($request->user());
+        return OrderService::index($request->user());
     }
 
     /**

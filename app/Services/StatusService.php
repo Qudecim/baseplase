@@ -30,7 +30,7 @@ class StatusService
      * @param User $user
      * @return Collection
      */
-    public static function all(User $user): Collection
+    public static function index(User $user): Collection
     {
         return $user->statuses()->get();
     }
