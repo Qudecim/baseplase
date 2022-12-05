@@ -31,16 +31,22 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/token/{token}', [\App\Http\Controllers\TokenController::class, 'destroy']);
 
     Route::get('/status', [\App\Http\Controllers\StatusController::class, 'index']);
-    Route::get('/status/{status}', [\App\Http\Controllers\StatusController::class, 'show']);
+    Route::get('/status/{status}', [\App\Http\Controllers\StatusController::class, 'show'])
+        ->middleware('permission:status');
     Route::post('/status', [\App\Http\Controllers\StatusController::class, 'store']);
-    Route::put('/status/{status}', [\App\Http\Controllers\StatusController::class, 'update']);
-    Route::delete('/status/{status}', [\App\Http\Controllers\StatusController::class, 'destroy']);
+    Route::put('/status/{status}', [\App\Http\Controllers\StatusController::class, 'update'])
+        ->middleware('permission:status');
+    Route::delete('/status/{status}', [\App\Http\Controllers\StatusController::class, 'destroy'])
+        ->middleware('permission:status');
 
     Route::get('/order', [\App\Http\Controllers\OrderController::class, 'index']);
-    Route::get('/order/{order}', [\App\Http\Controllers\OrderController::class, 'show']);
+    Route::get('/order/{order}', [\App\Http\Controllers\OrderController::class, 'show'])
+        ->middleware('permission:order');
     Route::post('/order', [\App\Http\Controllers\OrderController::class, 'store']);
-    Route::put('/order/{order}', [\App\Http\Controllers\OrderController::class, 'update']);
-    Route::delete('/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy']);
+    Route::put('/order/{order}', [\App\Http\Controllers\OrderController::class, 'update'])
+        ->middleware('permission:order');
+    Route::delete('/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])
+        ->middleware('permission:order');
 });
 
 
