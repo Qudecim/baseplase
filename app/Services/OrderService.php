@@ -11,24 +11,22 @@ use Illuminate\Support\Collection;
 class OrderService
 {
     /**
-     * @param User $user
      * @return Collection
      */
-    public static function index(User $user): Collection
+    public static function index(): Collection
     {
-        return $user->orders()->get();
+        return auth()->user()->orders()->get();
     }
 
     /**
      * Create new Order
-     * @param User $user
      * @param array $data
      * @return Order
      */
-    public static function create(User $user, array $data): Order
+    public static function create(array $data): Order
     {
         $order = new Order();
-        $order->owner_id = $user->id;
+        $order->owner_id = auth()->id();
         $order->status_id = 0;
 
         $order->fill($data)->save();
@@ -37,47 +35,33 @@ class OrderService
     }
 
     /**
-     * @param User $user
      * @param Order $order
      * @return Order
-     * @throws \Exception
      */
-    public static function show(User $user, Order $order): Order
+    public static function show(Order $order): Order
     {
-        if ($order->owner_id == $user->id) {
-            return $order;
-        }
-        throw new \Exception('ops');
+        return $order;
     }
 
     /**
-     * @param User $user
      * @param Order $order
      * @param array $data
      * @return Order
-     * @throws \Exception
      */
-    public static function update(User $user, Order $order, array $data): Order
+    public static function update(Order $order, array $data): Order
     {
-        if ($order->owner_id == $user->id) {
+        $order->fill($data)->save();
 
-            $order->fill($data)->save();
-
-            return $order;
-        }
-        throw new \Exception('');
+        return $order;
     }
 
     /**
-     * @param User $user
      * @param Order $order
      * @return void
      */
-    public static function destroy(User $user, Order $order)
+    public static function destroy(Order $order)
     {
-        if ($order->owner_id == $user->id) {
-            $order->delete();
-        }
+        $order->delete();
     }
 
 }

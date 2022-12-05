@@ -11,12 +11,11 @@ class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @param Request $request
      * @return Collection
      */
-    public function index(Request $request): Collection
+    public function index(): Collection
     {
-        return StatusService::index($request->user());
+        return StatusService::index();
     }
 
     /**
@@ -30,7 +29,7 @@ class StatusController extends Controller
             'name' => 'required|string|max:255',
             'color' => 'required|string|max:6',
         ]);
-        return StatusService::create($request->user(), $validatedData['name'], $validatedData['color']);
+        return StatusService::create($validatedData['name'], $validatedData['color']);
     }
 
     /**
@@ -42,7 +41,7 @@ class StatusController extends Controller
      */
     public function show(Request $request, Status $status): Status
     {
-        return StatusService::show($request->user(), $status);
+        return StatusService::show($status);
     }
 
     /**
@@ -66,8 +65,8 @@ class StatusController extends Controller
      * @param  Status  $status
      * @return void
      */
-    public function destroy(Request $request,Status $status): void
+    public function destroy(Status $status): void
     {
-        StatusService::delete($request->user(), $status);
+        StatusService::delete($status);
     }
 }

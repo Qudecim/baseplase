@@ -11,15 +11,14 @@ class StatusService
 
     /**
      * Create new status
-     * @param User $user
      * @param string $name
      * @param string $color
      * @return Status
      */
-    public static function create(User $user, string $name, string $color): Status
+    public static function create(string $name, string $color): Status
     {
         $status = new Status();
-        $status->owner_id = $user->id;
+        $status->owner_id = auth()->id();
         $status->name = $name;
         $status->color = $color;
         $status->save();
@@ -27,26 +26,20 @@ class StatusService
     }
 
     /**
-     * @param User $user
      * @return Collection
      */
-    public static function index(User $user): Collection
+    public static function index(): Collection
     {
-        return $user->statuses()->get();
+        return auth()->user()->statuses()->get();
     }
 
     /**
-     * @param User $user
      * @param Status $status
      * @return Status
-     * @throws \Exception
      */
-    public static function show(User $user, Status $status): Status
+    public static function show(Status $status): Status
     {
-        if ($status->owner_id == $user->id) {
-            return $status;
-        }
-        throw new \Exception('');
+        return $status;
     }
 
     /**
@@ -63,27 +56,23 @@ class StatusService
     }
 
     /**
-     * @param User $user
      * @param Status $status
      * @return void
      */
-    public static function delete(User $user, Status $status): void
+    public static function delete(Status $status): void
     {
-        if ($status->owner_id == $user->id) {
-            $status->delete();
-        }
+        $status->delete();
     }
 
     /**
      * Create default statuses
-     * @param User $user
      * @return void
      */
-    public static function createDefault(User $user): void
+    public static function createDefault(): void
     {
         $defaultStatuses = [
             [
-                'owner_id'  => $user->id,
+                'owner_id'  => auth()->id,
                 'name'      => 'new',
                 'color'     => '3498db',
                 'created_at'=> date('Y-m-d H:i:s'),

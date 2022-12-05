@@ -14,9 +14,9 @@ class OrderController extends Controller
      *
      * @return Collection
      */
-    public function index(Request $request): Collection
+    public function index(): Collection
     {
-        return OrderService::index($request->user());
+        return OrderService::index();
     }
 
     /**
@@ -30,20 +30,19 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             'status_id' => 'int',
         ]);
-        return OrderService::create($request->user(), $validatedData);
+        return OrderService::create($validatedData);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param Request $request
      * @param \App\Models\Order $order
      * @return Order
      * @throws \Exception
      */
-    public function show(Request $request, Order $order): Order
+    public function show(Order $order): Order
     {
-        return OrderService::show($request->user(), $order);
+        return OrderService::show($order);
     }
 
     /**
@@ -59,7 +58,7 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             'status_id' => 'int',
         ]);
-        return OrderService::update($request->user(), $order, $validatedData);
+        return OrderService::update($order, $validatedData);
     }
 
     /**
@@ -68,8 +67,8 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return void
      */
-    public function destroy(Request $request,Order $order):void
+    public function destroy(Order $order):void
     {
-        OrderService::destroy($request->user(), $order);
+        OrderService::destroy($order);
     }
 }
