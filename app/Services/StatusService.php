@@ -11,26 +11,27 @@ class StatusService
 
     /**
      * Create new status
-     * @param string $name
-     * @param string $color
+     * @param User $user
+     * @param array $data
      * @return Status
      */
-    public static function create(string $name, string $color): Status
+    public static function create(User $user, array $data): Status
     {
         $status = new Status();
-        $status->owner_id = auth()->id();
-        $status->name = $name;
-        $status->color = $color;
+        $status->owner_id = $user->id;
+        $status->name = $data['name'];
+        $status->color = $data['color'];
         $status->save();
         return $status;
     }
 
     /**
+     * @param User $user
      * @return Collection
      */
-    public static function index(): Collection
+    public static function index(User $user): Collection
     {
-        return auth()->user()->statuses()->get();
+        return $user->statuses()->get();
     }
 
     /**
@@ -83,4 +84,12 @@ class StatusService
         Status::insert($defaultStatuses);
     }
 
+    /**
+     * @param User $user
+     * @return int
+     */
+    public static function count(User $user): int
+    {
+        return $user->statuses()->count();
+    }
 }

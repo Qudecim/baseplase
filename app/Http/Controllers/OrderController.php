@@ -12,11 +12,17 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Collection
+     * @param Request $request
+     * @return array
      */
-    public function index(): Collection
+    public function index(Request $request): array
     {
-        return OrderService::index();
+        return [
+            'data' => OrderService::index($request->user()),
+            'meta' => [
+                'count' => OrderService::count($request->user()),
+            ]
+        ];
     }
 
     /**
@@ -30,7 +36,7 @@ class OrderController extends Controller
         $validatedData = $request->validate([
             'status_id' => 'int',
         ]);
-        return OrderService::create($validatedData);
+        return OrderService::create($request->user(), $validatedData);
     }
 
     /**

@@ -12,11 +12,12 @@ class ProductService
 {
 
     /**
+     * @param User $user
      * @return Collection
      */
-    public static function index(): Collection
+    public static function index(User $user): Collection
     {
-        return auth()->user()->products()->get();
+        return $user->products()->get();
     }
 
     /**
@@ -29,13 +30,14 @@ class ProductService
     }
 
     /**
+     * @param User $user
      * @param array $data
      * @return Product
      */
-    public static function create(array $data): Product
+    public static function create(User $user,array $data): Product
     {
         $product = new Product();
-        $product->owner_id = auth()->id();
+        $product->owner_id = $user->id;
 
         $product->fill($data)->save();
 
@@ -55,11 +57,19 @@ class ProductService
     }
 
     /**
-     * @param Product $productn
+     * @param Product $product
      */
     public static function destroy(Product $product)
     {
         $product->delete();
     }
 
+    /**
+     * @param User $user
+     * @return int
+     */
+    public static function count(User $user): int
+    {
+        return $user->products()->count();
+    }
 }

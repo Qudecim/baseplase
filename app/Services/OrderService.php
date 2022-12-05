@@ -4,6 +4,7 @@
 namespace App\Services;
 
 
+use App\Baseplace\Responder;
 use App\Models\Order;
 use App\Models\User;
 use Illuminate\Support\Collection;
@@ -11,22 +12,24 @@ use Illuminate\Support\Collection;
 class OrderService
 {
     /**
+     * @param User $user
      * @return Collection
      */
-    public static function index(): Collection
+    public static function index(User $user): Collection
     {
-        return auth()->user()->orders()->get();
+        return $user->orders()->get();
     }
 
     /**
      * Create new Order
+     * @param User $user
      * @param array $data
      * @return Order
      */
-    public static function create(array $data): Order
+    public static function create(User $user, array $data): Order
     {
         $order = new Order();
-        $order->owner_id = auth()->id();
+        $order->owner_id = $user->id;
         $order->status_id = 0;
 
         $order->fill($data)->save();
@@ -48,7 +51,7 @@ class OrderService
      * @param array $data
      * @return Order
      */
-    public static function update(Order $order, array $data): Order
+    public static function update( Order $order, array $data): Order
     {
         $order->fill($data)->save();
 
@@ -62,6 +65,15 @@ class OrderService
     public static function destroy(Order $order)
     {
         $order->delete();
+    }
+
+    /**
+     * @param User $user
+     * @return int
+     */
+    public static function count(User $user): int
+    {
+        return $user->orders()->count();
     }
 
 }

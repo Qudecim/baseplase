@@ -11,11 +11,17 @@ class StatusController extends Controller
 {
     /**
      * Display a listing of the resource.
-     * @return Collection
+     * @param Request $request
+     * @return array
      */
-    public function index(): Collection
+    public function index(Request $request): array
     {
-        return StatusService::index();
+        return [
+            'statuses' => StatusService::index($request->user()),
+            'meta' => [
+                'count' => StatusService::count($request->user()),
+            ]
+        ];
     }
 
     /**
@@ -29,7 +35,7 @@ class StatusController extends Controller
             'name' => 'required|string|max:255',
             'color' => 'required|string|max:6',
         ]);
-        return StatusService::create($validatedData['name'], $validatedData['color']);
+        return StatusService::create($request->user(), $validatedData);
     }
 
     /**

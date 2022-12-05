@@ -12,11 +12,17 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Collection
+     * @param Request $request
+     * @return array
      */
-    public function index(): Collection
+    public function index(Request $request): array
     {
-        return ProductService::index();
+        return [
+            'products' => ProductService::index($request->user()),
+            'meta' => [
+                'count' => ProductService::count($request->user()),
+            ]
+        ];
     }
 
     /**
@@ -27,17 +33,6 @@ class ProductController extends Controller
      */
     public function store(Request $request): Product
     {
-        //        'owner_id',
-        //        'name',
-        //        'sku',
-        //        'ean',
-        //        'weight',
-        //        'height',
-        //        'width',
-        //        'length',
-        //        'price',
-        //        'description',
-
         $validatedData = $request->validate([
             'status_id'     => 'int',
             'name'          => 'string|max:255',
@@ -51,7 +46,7 @@ class ProductController extends Controller
             'description'   => 'string',
 
         ]);
-        return ProductService::create($validatedData);
+        return ProductService::create($request->user(), $validatedData);
     }
 
     /**
