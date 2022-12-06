@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -34,7 +33,6 @@ class ProductController extends Controller
     public function store(Request $request): Product
     {
         $validatedData = $request->validate([
-            'status_id'     => 'int',
             'name'          => 'string|max:255',
             'sku'           => 'string|max:255',
             'ean'           => 'string|max:13',

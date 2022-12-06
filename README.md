@@ -1,3 +1,11 @@
 ###### Todo:
-- Sanctum auth for SPA
-- Generate token for API
+- Brands
+- Category and subcategory
+- Hooks event
+- Integrations interface 
+- Send email  
+- ElasticSearch
+
+###### Maybe:
+- Resource or Responder
+- Warehouses and stock
