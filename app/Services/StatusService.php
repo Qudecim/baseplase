@@ -67,13 +67,14 @@ class StatusService
 
     /**
      * Create default statuses
+     * @param User $user
      * @return void
      */
-    public static function createDefault(): void
+    public static function createDefault(User $user): void
     {
         $defaultStatuses = [
             [
-                'owner_id'  => auth()->id,
+                'owner_id'  => $user->id,
                 'name'      => 'new',
                 'color'     => '3498db',
                 'created_at'=> date('Y-m-d H:i:s'),

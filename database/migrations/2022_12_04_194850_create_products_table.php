@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('length')->nullable();
             $table->double('price')->nullable();
             $table->string('description')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

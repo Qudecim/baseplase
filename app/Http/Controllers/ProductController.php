@@ -40,8 +40,9 @@ class ProductController extends Controller
             'height'        => 'int',
             'width'         => 'int',
             'length'        => 'int',
-            'price'         => 'float',
+            'price'         => '',
             'description'   => 'string',
+            'brand_id'      => 'int',
 
         ]);
         return ProductService::create($request->user(), $validatedData);

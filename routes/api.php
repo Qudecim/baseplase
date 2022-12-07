@@ -47,6 +47,24 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         ->middleware('permission:order');
     Route::delete('/order/{order}', [\App\Http\Controllers\OrderController::class, 'destroy'])
         ->middleware('permission:order');
+
+    Route::get('/product', [\App\Http\Controllers\ProductController::class, 'index']);
+    Route::get('/product/{product}', [\App\Http\Controllers\ProductController::class, 'show'])
+        ->middleware('permission:product');
+    Route::post('/product', [\App\Http\Controllers\ProductController::class, 'store']);
+    Route::put('/product/{product}', [\App\Http\Controllers\ProductController::class, 'update'])
+        ->middleware('permission:product');
+    Route::delete('/product/{product}', [\App\Http\Controllers\ProductController::class, 'destroy'])
+        ->middleware('permission:product');
+
+    Route::get('/brand', [\App\Http\Controllers\BrandController::class, 'index']);
+    Route::get('/brand/{brand}', [\App\Http\Controllers\BrandController::class, 'show'])
+        ->middleware('permission:brand');
+    Route::post('/brand', [\App\Http\Controllers\BrandController::class, 'store']);
+    Route::put('/brand/{brand}', [\App\Http\Controllers\BrandController::class, 'update'])
+        ->middleware('permission:brand');
+    Route::delete('/brand/{brand}', [\App\Http\Controllers\BrandController::class, 'destroy'])
+        ->middleware('permission:brand');
 });
 
 

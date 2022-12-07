@@ -21,9 +21,20 @@ class Product extends Model
         'length',
         'price',
         'description',
+        'brand_id'
     ];
 
     protected $hidden = [
         'owner_id',
     ];
+
+    /**
+     * Get brand
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
 }

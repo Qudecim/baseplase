@@ -64,7 +64,7 @@ class User extends Authenticatable
      */
     public function products(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Order::class, 'owner_id');
+        return $this->hasMany(Product::class, 'owner_id');
     }
 
     /**

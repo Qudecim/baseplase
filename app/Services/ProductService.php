@@ -17,7 +17,7 @@ class ProductService
      */
     public static function index(User $user): Collection
     {
-        return $user->products()->get();
+        return $user->products()->with('brand')->get();
     }
 
     /**
