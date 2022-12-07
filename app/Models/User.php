@@ -66,4 +66,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class, 'owner_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function brands(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Brand::class, 'owner_id');
+    }
 }
