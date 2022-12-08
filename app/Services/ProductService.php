@@ -26,7 +26,7 @@ class ProductService
      */
     public static function show(Product $product): Product
     {
-        return $product;
+        return $product->load('brand');
     }
 
     /**

@@ -17,5 +17,6 @@ class Brand extends Model
 
     protected $hidden = [
         'owner_id',
+        'deleted_at'
     ];
 }
