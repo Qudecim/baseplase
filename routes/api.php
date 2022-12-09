@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/brand/{brand}', [\App\Http\Controllers\BrandController::class, 'destroy'])
         ->middleware('permission:brand');
 
+
+
     Route::get('/test', [\App\Http\Controllers\TestController::class, 'index']);
 });
 
