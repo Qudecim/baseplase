@@ -63,9 +63,10 @@ class ActionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Action  $action
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Action $action
      * @return Action
+     * @throws \Exception
      */
     public function update(Request $request, Action $action): Action
     {

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Status;
 use App\Services\StatusService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 
 class StatusController extends Controller
 {
